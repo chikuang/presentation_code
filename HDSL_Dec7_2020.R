@@ -33,11 +33,13 @@ df_temp <- read_csv("D:/My_Documents/Github/RTPForNBA/data/nba_2019.csv") %>%
   avg_tp()
 
 df_nba_2019 <- load_nba_data("D:/My_Documents/Github/RTPForNBA/data/nba_2019.csv", 
-                             grid, my_grid) 
+                             grid, my_grid)
 
-df_nba_2019%>% filter(game_num == 293) 
-ggplot(df_temp, aes(time_scale, home_WP)) + geom_line(size = 1) + 
+# df_nba_2019%>% filter(game_num == 293) 
+df_nba_2019 %>% filter(game_num == 11) %>% 
+  ggplot(aes(grid, phat_espn)) + geom_line(size = 1) + 
   geom_point(col = "red", size = 2) + 
+  geom_point(aes(x = 1, y = Y ), col = "blue", size = 5) +  
   ggtitle("Probabilitistic Forecast of a Basketball Game") + 
   ylab("Probability of home team winning") + 
   xlab("In-game time elapsed (%)") + 
