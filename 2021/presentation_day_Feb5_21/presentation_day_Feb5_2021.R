@@ -3,6 +3,9 @@
 #' Location: Virtual
 #' 
 
+#' The purpose of this script is to show case the calibration and sharpness
+#' of a probabilistic forecast
+#' 
 library(tibble)
 library(ggplot2)
 library(dplyr)
@@ -32,18 +35,6 @@ ggplot(df_naive, aes(x = pred_val)) +
         strip.text = element_text(size = rel(1.5))) +
   facet_wrap(~ ind, nrow = 1) +
   scale_x_continuous(breaks = seq(from = 0, to = 1, by = 0.25))
-
-ggplot(df1, aes(x = yy)) + 
-  geom_histogram(aes( y = ..count../sum(..count..)), col = "black",
-                 fill = "red",
-                 binwidth = 0.1, boundary = 0) +
-  xlab("Actual home team winning result") +  ylab("Percentage") +
-  theme(plot.title = element_text(hjust = 0.5)) +
-  theme(axis.title = element_text(size = rel(1.5)),
-        axis.text = element_text(size = rel(1.5)),
-        strip.text = element_text(size = rel(1.5))) +
-  ggtitle("Actual Result")
-
 
 
 # Calibration -------------------------------------------------------------
