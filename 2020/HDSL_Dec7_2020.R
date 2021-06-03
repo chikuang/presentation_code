@@ -23,7 +23,7 @@ governor_national_forecast %>% filter(party == "D") %>%
 
 
 # NBA game ----------------------------------------------------------------
-source("D:/My_Documents/Github/RTPForNBA/misc_funs.R")
+source("D:/My_Documents/Github/RTPForNBA/utility.R")
 grid <- seq(0, 1, 1 / 2880 / 2)
 my_grid <- seq(0, 1, 1 / 2880 * 4)
 
@@ -36,7 +36,7 @@ df_nba_2019 <- load_nba_data("D:/My_Documents/Github/RTPForNBA/data/nba_2019.csv
                              grid, my_grid)
 
 # df_nba_2019%>% filter(game_num == 293) 
-df_nba_2019 %>% filter(game_num == 11) %>% 
+fig <- df_nba_2019 %>% filter(game_num == 11) %>% 
   ggplot(aes(grid, phat_espn)) + geom_line(size = 1) + 
   geom_point(col = "red", size = 2) + 
   geom_point(aes(x = 1, y = Y ), col = "blue", size = 5) +  
@@ -48,8 +48,29 @@ df_nba_2019 %>% filter(game_num == 11) %>%
         legend.title = element_text(size = rel(1.5)),
         legend.text  = element_text(size = rel(1.25)),
         plot.title = element_text(hjust = 0.5,
-                                  size= rel(1.75)))
+                                  size= rel(1.75))) 
 
+
+fig <- df_nba_2019 %>% filter(game_num == 11) %>% 
+  ggplot(aes(grid, phat_espn)) + 
+  geom_line(aes(col = "Interpolated \nprob."), size = 1) + 
+  geom_point(aes(col = "Obs."), size = 2) + 
+  geom_point(aes(x = 1, y = Y, col = "Outcome" ), size = 5) +  
+  ggtitle("Probabilitistic Forecast of a Basketball Game") + 
+  theme(axis.title = element_text(size = rel(1.5)),
+        axis.text = element_text(size = rel(1.25)),
+        legend.title = element_text(size = rel(1.5)),
+        legend.text  = element_text(size = rel(1.25)),
+        plot.title = element_text(hjust = 0.5,
+                                  size= rel(1.75))) 
+
+
+colors <- c("Outcome" = "blue", "Obs." = "red", "Interpolated \nprob." = "black")
+fig + 
+  labs(x = "In-game time elapsed (%)",
+       y = "Probability of home team winning",
+       color = "") +
+  scale_color_manual(values = colors)
 
 N <- 5000
 df <- tibble(var_norm = rnorm(N, sd = 5), var_unif = runif(N)) %>% 
