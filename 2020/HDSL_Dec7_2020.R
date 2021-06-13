@@ -36,9 +36,9 @@ df_nba_2019 <- load_nba_data("D:/My_Documents/Github/RTPForNBA/data/nba_2019.csv
                              grid, my_grid)
 
 # df_nba_2019%>% filter(game_num == 293) 
-fig <- df_nba_2019 %>% filter(game_num == 11) %>% 
+df_nba_2019 %>% filter(game_num == 11) %>% 
   ggplot(aes(grid, phat_espn)) + geom_line(size = 1) + 
-  geom_point(col = "red", size = 2) + 
+  # geom_point(col = "red", size = 2) + 
   geom_point(aes(x = 1, y = Y ), col = "blue", size = 5) +  
   ggtitle("Probabilitistic Forecast of a Basketball Game") + 
   ylab("Probability of home team winning") + 
