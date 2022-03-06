@@ -3,8 +3,10 @@ library(fdaACF)
 library(dplyr)
 
 par(mfrow=c(1,2))
-tsplot(sp500w, main = "Weekly growth rate of S&P 500 index",
-       xlab = "week", ylab =  "Return growth rate")
+tsplot(sp500w[1:200,], main = "Weekly growth rate of S&P 500 index",
+       xlab = "week", ylab =  "Return growth rate", type = "p",
+       lwd = 2)
+lines(x = 1:200, sp500w[1:200, ], col = "red", type = "l")
 acf(sp500w, lag.max = 30, xlim = c(2, 30), ylim = c(-0.1, 0.2),
     ylab = "Autocorrelation")
 title(main = "ACF")
