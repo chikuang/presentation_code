@@ -40,7 +40,5 @@ N <- ncol(tempmat)
 times <- seq(0, 1, length.out = 365)
 # 
 obs <- tempmat
-colnames(obs) <- 1:ncol(tempmat)
-tfd <- fts(x = times, y = obs)
-calc_distrn(tfd, max = 10) %>% plot_dynauto() + ylim(-0.3, 1.0)
+calc_distrn(obs = obs, H = 10) %>% plot_dynauto() + ylim(-0.3, 1.0)
 

@@ -43,9 +43,5 @@ N <- ncol(pm_10_GR$y)
 times <- seq(0, 1, length.out = 48)
 # 
 obs <- pm_10_GR$y
-colnames(obs) <- 1:ncol(obs)
-tfd <- fts(x = times, y = obs)
-calc_distrn(tfd, max = 60) %>% plot_dynauto()
-
-
+calc_distrn(obs, H = 60) %>% plot_dynauto()
 
