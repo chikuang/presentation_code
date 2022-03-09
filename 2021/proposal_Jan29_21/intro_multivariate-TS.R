@@ -14,7 +14,9 @@ legend(1, 0.21, legend = c("i.i.d. bound (95 % conf.)"),
        col = "blue", lty = 2, cex=0.8,
        text.font= 4, bg="white")
 
-
+tsplot(sp500w[1:200,], main = "Weekly growth rate of S&P 500 index",
+       xlab = "week", ylab =  "Return growth rate", type = "p",
+       lwd = 2)
 
 # From fdaACF -------------------------------------------------------------
 
