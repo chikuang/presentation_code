@@ -6,15 +6,18 @@ library(pbapply)
 library(tibble)
 library(tidyr)
 source("./util.R")
-# Simulate Brownian motion
-N <- 2000
+theme_set(theme_bw())
+theme_update(plot.title = element_text(hjust = 0.5))
+
+# Simulate Brownian bridge
+N <- 1000
 Nt <- 101
 H <- 30
 alpha <- 0.05
 s <- seq(0, 1, length.out = Nt)
 set.seed(520)
 obs <- pbsapply(1:N, function(i){
-  sde::BM()
+  sde::BBridge()
 }) %>% t()
 
 # Plot the observations 
@@ -29,11 +32,11 @@ ggplot(df_res, aes(x = time, y = val, col = obs)) +
   theme(legend.position = "none") + xlab("Time (t)") + ylab("") +
   ggtitle("") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  ggtitle("Brownian motion")
+  ggtitle("Brownian bridge")
 
 # FACF
 FACF <- obtain_FACF(Y = obs, v = s, nlags = H, ci = 1 - alpha,
-                    figure = fALSE)
+                    figure = FALSE)
 h <- 1:H
 df_facf <- tibble(rho = FACF$rho, h = h, blueline = FACF$Blueline)
 ggplot(data = df_facf, mapping = aes(x = h, y = rho)) +
@@ -42,11 +45,10 @@ ggplot(data = df_facf, mapping = aes(x = h, y = rho)) +
   geom_segment(mapping = aes(xend = h, yend = 0), 
                size = 1, col = "black") + 
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(x = "lag (h)", y = " ") + 
-  ggtitle("FACF of Brownian motion")
+  labs(x = "Lag (h)", y = " ") + 
+  ggtitle("FACF of Brownian bridge")
 
 # DACF
-
 df_dacf <- my_new_receipt(obs, H) %>% 
   mutate(lb = qnorm(alpha/2) * std_0_cen/sqrt(N), 
          ub = qnorm(1 - alpha/2) * std_0_cen/sqrt(N))
@@ -57,6 +59,5 @@ ggplot(data = df_dacf, mapping = aes(x = h, y = rho_cen)) +
                col = "black") + 
   geom_ribbon(aes(ymin = lb, ymax = ub), 
               linetype = "longdash", fill = NA, color = "blue") + 
-  theme(plot.title = element_text(hjust = 0.5)) +
-  labs(x = "lag (h)", y = " ")  + 
-  ggtitle("DACF of Brownian motion")
+  labs(x = "Lag (h)", y = " ")  + 
+  ggtitle("DACF of Brownian bridge")

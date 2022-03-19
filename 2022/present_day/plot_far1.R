@@ -6,19 +6,18 @@ library(pbapply)
 library(tibble)
 library(tidyr)
 source("./util.R")
-# Simulate Brownian motion
-N <- 2000
+theme_set(theme_bw())
+theme_update(plot.title = element_text(hjust = 0.5))
+N <- 1000
 Nt <- 101
 H <- 30
 alpha <- 0.05
 s <- seq(0, 1, length.out = Nt)
-set.seed(520)
+
 # Simulate data
 
 # par(mfrow = c(1, 1))
 set.seed(888)
-N <- 2000
-Nt <- 101
 H <- 30
 my_coef <- -1.1
 burn_in <- 50
@@ -67,7 +66,7 @@ ggplot(data = df_facf, mapping = aes(x = h, y = rho)) +
   geom_segment(mapping = aes(xend = h, yend = 0), 
                size = 1, col = "black") + 
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(x = "lag (h)", y = " ") + 
+  labs(x = "Lag (h)", y = " ") + 
   ggtitle("FACF of FAR(1)")
 
 # DACF
@@ -83,5 +82,5 @@ ggplot(data = df_dacf, mapping = aes(x = h, y = rho_cen)) +
   geom_ribbon(aes(ymin = lb, ymax = ub), 
               linetype = "longdash", fill = NA, color = "blue") + 
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(x = "lag (h)", y = " ")  + 
+  labs(x = "Lag (h)", y = " ")  + 
   ggtitle("DACF of FAR(1)")
