@@ -1,0 +1,2 @@
+The Japanese mortality data set was from the paper entitled [Grouped functional time series forecasting:
+An application to age-specific mortality rates](https://www.tandfonline.com/doi/full/10.1080/10618600.2016.1237877) (2017) by Han Lin Shang and Rob. J. Hyndman
