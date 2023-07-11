@@ -14,7 +14,7 @@ s <- seq(0, 1, length.out = Nt)
 ker <- function(tt, s){
   exp( -(tt^2 + s^2)/2)
 }
-norm_const <- calc_ker_norm_const(-0.2, ker = ker)
+norm_const <- calc_ker_norm_const(-0.6, ker = ker)
 
 
 # Simulate data
@@ -53,7 +53,8 @@ names(df_obs) <-  c("time", paste0("obs_", 1:50))
 df_res <- pivot_longer(df_obs, !time, 
                        names_to = "obs", values_to = "val")
 ggplot(df_res, aes(x = time, y = val, col = obs)) +
-  geom_line() + labs(x = "Time (t)", y = "")
+  geom_line() + labs(x = "Time (t)", y = "") +
+  ggtitle("FAR(1. -0.7)")
 
 # FACF
 FACF <- obtain_FACF(Y = obs, v = s, nlags = H, ci = 1 - alpha,
@@ -66,8 +67,8 @@ ggplot(data = df_facf, mapping = aes(x = h, y = rho)) +
   geom_segment(mapping = aes(xend = h, yend = 0), 
                size = 1, col = "black") + 
   theme(plot.title = element_text(hjust = 0.5)) +
-  labs(x = "Lag (h)", y = " ") + 
-  ggtitle("FACF of FAR(1)")
+  labs(x = "h", y = " ") + 
+  ggtitle("fACF of FAR(1, -0.7)")
 
 # DACF
 df_dacf <- my_new_receipt(obs, H) %>% 
@@ -82,4 +83,4 @@ ggplot(data = df_dacf, mapping = aes(x = h, y = rho_cen)) +
               linetype = "longdash", fill = NA, color = "blue") + 
   theme(plot.title = element_text(hjust = 0.5)) +
   labs(x = "Lag (h)", y = " ")  + 
-  ggtitle("DACF of FAR(1)")
+  ggtitle("fSACF of FAR(1. -0.7)")
