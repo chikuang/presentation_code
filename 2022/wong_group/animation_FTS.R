@@ -28,7 +28,8 @@ N_year <- group_by(df, Year) %>% summarise(n=n()) %>% nrow()
 N_age <- group_by(df, Age) %>% summarise(n=n()) %>% nrow()
   
 
-plot1 <- df %>% mutate(Year_index = factor(Year_index)) %>% ggplot(aes(x = Age, y = val,  colour = Year_index)) +
+plot1 <- df %>% mutate(Year_index = factor(Year_index)) %>% 
+  ggplot(aes(x = Age, y = val,  colour = Year_index)) +
   geom_line() +
   scale_colour_manual(values = rainbow(71)) 
 
@@ -59,3 +60,34 @@ anim2 <- plot2 +
   ease_aes('linear')
 anim2
 anim_save("sts.gif", last_animation())
+
+
+## May 29, 2023, add animation of Spanish Electricity price data
+# library(fdaACF)
+# data("elec_prices")
+# N <- nrow(elec_prices)
+# # df3 <- tibble(day = 1, hour = 1:24, val = unlist(elec_prices[1,]))
+# df3 <- NULL
+# for(i in 1:365){
+#   temp <- tibble(day = paste0()day_index = i, hour = 1:24, val = unlist(elec_prices[i,]))
+#   df3 <- bind_rows(df3, temp)
+# }
+# 
+# 
+# plot3 <- df3 %>% 
+#   mutate(day_index = factor(day_index)) %>% 
+#   ggplot(aes(x = hour, y = val,  colour = day_index)) +
+#   geom_line() +
+#   scale_colour_manual(values = rainbow(365))
+# # anim <- plot1 +
+# #   labs(title = "Japanese mortality data", x = "Age", y = "Log mortality") +
+# #   transition_reveal(Year) +
+# #   ease_aes('linear')
+# # anim
+# 
+# anim <- plot3 +
+#   labs(title = "Spanish electricity", x = "Hour", y = "Usage") +
+#   transition_reveal(day_index) +
+#   ease_aes('linear')
+# anim
+# anim_save("fts.gif", last_animation())
