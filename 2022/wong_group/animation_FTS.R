@@ -38,7 +38,7 @@ animate(play,renderer = gifski_renderer())
 
 anim <- plot1 +
     labs(title = "Japanese mortality data", x = "Age", y = "Log mortality") +
-  transition_reveal(Year) +
+  transition_reveal(Year, keep=TRUE) +
   ease_aes('linear')
 anim
 anim_save("fts.gif", last_animation())
