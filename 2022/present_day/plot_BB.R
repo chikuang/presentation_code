@@ -7,7 +7,13 @@ library(tibble)
 library(tidyr)
 source("./util.R")
 theme_set(theme_bw())
-theme_update(plot.title = element_text(hjust = 0.5))
+theme_update(plot.title = element_blank(),
+             legend.text = element_text(size = 14),
+             legend.title = element_blank(),
+             legend.position = "none", 
+             axis.text = element_text(size = 14),
+             axis.title = element_text(size = 18),
+             axis.text.y = element_blank())
 
 # Simulate Brownian bridge
 N <- 500
@@ -15,7 +21,8 @@ Nt <- 101
 H <- 30
 alpha <- 0.05
 s <- seq(0, 1, length.out = Nt)
-set.seed(50)
+# set.seed(50)
+set.seed(222)
 obs <- pbsapply(1:N, function(i){
   sde::BBridge()
 }) %>% t()
