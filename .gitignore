@@ -3,6 +3,6 @@
 .RData
 .Ruserdata
 
-./2025/McGill_biostatistics/data/*.csv
+2025/McGill_biostatistics/data/*.csv
 
-./2025/McGill_biostatistics/data/*
+2025/McGill_biostatistics/data/*
