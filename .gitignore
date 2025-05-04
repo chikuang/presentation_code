@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+
+./2025/McGill_biostatistics/data/*.csv
