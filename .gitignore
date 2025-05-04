@@ -4,3 +4,5 @@
 .Ruserdata
 
 ./2025/McGill_biostatistics/data/*.csv
+
+./2025/McGill_biostatistics/data/*
